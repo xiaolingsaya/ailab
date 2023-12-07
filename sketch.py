@@ -25,6 +25,8 @@ while(True):
     cv2.imshow('blurfinale',blurfinale)
     ret,binary = cv2.threshold(blurfinale,235,255,cv2.THRESH_BINARY)
     cv2.imshow('finale',binary)
+    if cv2.waitKey(1) == ord('s'):
+        cv2.imwrite('/home/student/2100012869/finale/output.png',binary)
     if cv2.waitKey(1) == ord('q'):
         break
 camera.stop()
