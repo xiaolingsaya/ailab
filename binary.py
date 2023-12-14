@@ -2,10 +2,10 @@ from picamera2 import Picamera2
 import cv2
 import numpy as np
 import time
-def lining()
+def binary():
     camera = Picamera2()
-    camera.still_configuration.main.size = (640,480)
-    camera.still_configuration.main.format = 'RGB888'
+    camera.still_configuration .main.size = (640,480)
+    camera.still_configuration .main.format = 'RGB888'
     camera.configure("still")
     camera.start ()
     time.sleep(1)
@@ -18,17 +18,15 @@ def lining()
         input_img = camera.capture_array("main")
         cv2.imshow('ori',input_img)
         gray_img = cv2.cvtColor(input_img, cv2.COLOR_BGR2GRAY)
-        inv_gray_img = 255 - gray_img
-        ksize=ksize=int(cv2.getTrackbarPos('ksize','Output')/5)
+        cv2.imshow('gray',gray_img)
+        ksize=int(cv2.getTrackbarPos('ksize','Output')/5)
         if ksize%2==0:
             ksize+=1
         sigma=0
-        blur_img = cv2.GaussianBlur(inv_gray_img, ksize=(ksize, ksize), sigmaX=sigma, sigmaY=sigma)
-        sketch_img = cv2.divide(gray_img, 255 - blur_img, scale=256)  
-        blurfinale = cv2.GaussianBlur(sketch_img, ksize=(7, 7), sigmaX=sigma, sigmaY=sigma)
-        ret,binary = cv2.threshold(blurfinale,235,255,cv2.THRESH_BINARY)
+        blurry = cv2.GaussianBlur(gray_img, ksize=(ksize, ksize), sigmaX=sigma, sigmaY=sigma)
+        shadow=cv2.getTrackbarPos('shadow','Output')
+        ret,binary = cv2.threshold(blurry,shadow,255,cv2.THRESH_BINARY)
         cv2.imshow('finale',binary)
-        # 使用Canny边缘检测提取边缘
         edges = cv2.Canny(binary, 50, 150)
         inv_edges = 255 - edges
         cv2.imshow('Edges', inv_edges)
