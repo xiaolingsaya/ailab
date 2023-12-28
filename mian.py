@@ -96,9 +96,10 @@ print("welcome to drawing station!")
 print("please choose the style you want:")
 print("1 for the lining,2 for the binary")
 print("you can check the sample to clarify your need")
-if input()=="1":
+inputchoice=cv2.waitKey(1)
+if inputchoice== ord('1'):
     lining()
-if input()=="2":
+if inputchoice== ord('2'):
     binary()
 
 
