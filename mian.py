@@ -2,8 +2,6 @@ from picamera2 import Picamera2
 import cv2
 import numpy as np
 import time
-import sketch
-import binary
 from serial.tools import list_ports
 import pydobot
 import path
@@ -96,10 +94,10 @@ print("welcome to drawing station!")
 print("please choose the style you want:")
 print("1 for the lining,2 for the binary")
 print("you can check the sample to clarify your need")
-inputchoice=cv2.waitKey(1)
-if inputchoice== ord('1'):
+key = input()
+if key == "1":
     lining()
-if inputchoice== ord('2'):
+if key == "2":
     binary()
 
 
